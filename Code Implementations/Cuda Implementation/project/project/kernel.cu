@@ -7,6 +7,7 @@
 
 void training();
 void CosinKernel(float x, float y, int CenterR, int CenterC, float Centers[][121]);
+void GaussianKernal(float x, float y, int CenterR, int CenterC, float Centers[][121]);
 int main()
 {
 	
@@ -49,7 +50,7 @@ int main()
 	float temp = 0.0;
 	
 	CosinKernel(train[0][0],train[0][1], 2, 121, Centers);
-	//CosinKernel(-0.4, -1, 2, 121, Centers);
+	GaussianKernal(train[0][0], train[0][1], 2, 121, Centers);
 
 
 	return 0;
@@ -57,7 +58,18 @@ int main()
 
 
 
+void GaussianKernal(float x, float y,  int CenterR, int CenterC, float Centers[][121])
+{
+	float output[121];
+	float sigma = 0.04;
+	printf("Gauss Kernel\n\n\n");
+	for (int i = 0; i < 121; i++)
+	{
+		output[i] = exp(-(pow((x - Centers[0][i]), 2) + pow((y - Centers[1][i]), 2))/0.04);
+		printf("%f\n", output[i]);
+	}
 
+}
 void CosinKernel(float x,float y, int CenterR, int CenterC,float Centers[][121])
 {
 	printf("Cosine Kernel\n");
