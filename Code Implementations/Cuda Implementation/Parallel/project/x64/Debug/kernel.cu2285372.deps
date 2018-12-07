@@ -327,9 +327,13 @@ c:\program files\nvidia gpu computing toolkit\cuda\v9.2\include\host_defines.h
 c:\program files\nvidia gpu computing toolkit\cuda\v9.2\include\crt/host_defines.h
 c:\program files\nvidia gpu computing toolkit\cuda\v9.2\include\device_launch_parameters.h
 c:\program files\nvidia gpu computing toolkit\cuda\v9.2\include\vector_types.h
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include\cuda.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include\cuda_runtime.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include\device_launch_parameters.h
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include\cuda_runtime_api.h
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.10150.0\ucrt\stdio.h
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.10150.0\ucrt\corecrt_wstdio.h
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.10150.0\ucrt\corecrt_stdio_config.h
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.10150.0\ucrt\math.h
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include\device_functions.h
+c:\program files\nvidia gpu computing toolkit\cuda\v9.2\include\crt/device_functions.h

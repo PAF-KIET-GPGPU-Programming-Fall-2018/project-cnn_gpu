@@ -1,31 +1,30 @@
-﻿Build started 12/7/2018 5:42:18 PM.
+﻿Build started 12/8/2018 2:20:01 AM.
      1>Project "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\project\project.vcxproj" on node 2 (Build target(s)).
      1>AddCudaCompileDeps:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\cl.exe /E /nologo /showIncludes /TP /D__CUDACC__ /DWIN32 /DWIN64 /D_DEBUG /D_CONSOLE /D_MBCS /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\bin" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include" /I. /FIcuda_runtime.h /c "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\project\kernel.cu" 
      1>Project "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\project\project.vcxproj" (1) is building "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\project\project.vcxproj" (1:2) on node 2 (CudaBuildCore target(s)).
      1>CudaBuildCore:
          Compiling CUDA source file kernel.cu...
-         cmd.exe /C "C:\Users\lenovo\AppData\Local\Temp\tmp77cfdc49ecbc4faa9ac78b8e12e8a0a4.cmd"
+         cmd.exe /C "C:\Users\lenovo\AppData\Local\Temp\tmp45e5ed97b5dc415d94e5a793e417ebc9.cmd"
          "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\bin\nvcc.exe" -gencode=arch=compute_30,code=\"sm_30,compute_30\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64" -x cu  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc140.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\project\kernel.cu"
          
          C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\project>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\bin\nvcc.exe" -gencode=arch=compute_30,code=\"sm_30,compute_30\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64" -x cu  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc140.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\project\kernel.cu" 
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/Sequential/project/kernel.cu(25): warning : variable "outputNeuron" was declared but never referenced
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/Sequential/project/kernel.cu(30): warning : variable "Epoch" was declared but never referenced
-     1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/Sequential/project/kernel.cu(123): warning : variable "sigma" was declared but never referenced
          kernel.cu
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/Sequential/project/kernel.cu(19): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/Sequential/project/kernel.cu(19): warning C4305: 'initializing': truncation from 'double' to 'float'
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/Sequential/project/kernel.cu(29): warning C4305: 'initializing': truncation from 'double' to 'float'
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/Sequential/project/kernel.cu(44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-     1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/Sequential/project/kernel.cu(123): warning C4305: 'initializing': truncation from 'double' to 'float'
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/Sequential/project/kernel.cu(127): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/Sequential/project/kernel.cu(149): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
      1>Done Building Project "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\project\project.vcxproj" (CudaBuildCore target(s)).
      1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\x64\Debug\project.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\lib\x64" cudart_static.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\x64\Debug\project.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\x64\Debug\project.lib" /MACHINE:X64 x64\Debug\kernel.cu.obj
+            Creating library C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\x64\Debug\project.lib and object C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\x64\Debug\project.exp
          project.vcxproj -> C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\x64\Debug\project.exe
      1>Done Building Project "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\Sequential\project\project.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.07
+Time Elapsed 00:00:02.22
