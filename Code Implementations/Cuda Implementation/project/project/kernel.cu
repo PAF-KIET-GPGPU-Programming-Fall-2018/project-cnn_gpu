@@ -55,22 +55,55 @@ int main()
 	KG = (float *)malloc(size);
 	float RBFoutput[121];
 	float finalOutput = 0.0;
-	CosinKernel(train[0][0],train[0][1], 2, 121, Centers,KC);
-	GaussianKernal(train[0][0], train[0][1], 2, 121, Centers,KG);
-	for (int i = 0; i < 121; i++)
+	for (int Epoch = 0; Epoch < 10000; Epoch++)
 	{
-		RBFoutput[i] = (alpha1*KC[i] + alpha2*KG[i]) / (alpha1 + alpha2);
-		finalOutput += RBFoutput[i] * w[i] + b;
-		
-	}
-	printf("Final: %f\n", finalOutput);
-	error = trainOutput[0]- finalOutput;
-	printf("Error: %f\n", error);
-	b = b + learningRate*error;
-	for (int i = 0; i < 121; i++)
-	{
-		w[i] = w[i] + learningRate*error*RBFoutput[i];
-		printf("W: %f\n", w[i]);
+		for (int sample = 0; sample < 121; sample++)
+		{
+			CosinKernel(train[sample][0], train[sample][1], 2, 121, Centers, KC);
+			GaussianKernal(train[sample][0], train[sample][1], 2, 121, Centers, KG);
+			finalOutput = 0.0;
+			for (int i = 0; i < 121; i++)
+			{
+				RBFoutput[i] = (alpha1*KC[i] + alpha2*KG[i]) / (alpha1 + alpha2);
+				finalOutput += RBFoutput[i] * w[i] + b;
+
+			}
+		//	printf("Final: %f\n", finalOutput);
+			error = trainOutput[sample] - finalOutput;
+		//	printf("Error: %f\n", error);
+			b = b + learningRate*error;
+		//	printf("b: %f\n\n", b);
+			for (int i = 0; i < 121; i++)
+			{
+				w[i] = w[i] + learningRate*error*RBFoutput[i];
+				//printf("W: %f\n", w[i]);
+			}
+			float alpha1Update = 0.0, alpha2Update = 0.0;
+			for (int i = 0; i < 121; i++)
+			{
+				alpha1Update += (w[i] * (KC[i] - KG[i]));//l*((alpha1*alpha2) / (alpha1*pow(alpha1 + alpha2, 2)));
+
+			}
+			//printf("Alpha1UP: %f\n", alpha1Update);
+			for (int i = 0; i < 121; i++)
+			{
+				alpha2Update += (w[i] * (KG[i] - KC[i]));//l*((alpha1*alpha2) / (alpha1*pow(alpha1 + alpha2, 2)));
+
+			}
+			//printf("Alpha2UP: %f\n", alpha2Update);
+			alpha1Update = error*alpha1Update*((alpha1*alpha2) / (alpha1*pow(alpha1 + alpha2, 2)));
+
+
+
+			alpha2Update = error*alpha2Update*((alpha1*alpha2) / (alpha2*pow(alpha1 + alpha2, 2)));
+			alpha1 = alpha1 + learningRate*alpha1Update;
+			alpha2 = alpha2 + learningRate*alpha2Update;
+			alpha1 = alpha1 / (alpha1 + alpha2);
+			alpha2 = alpha2 / (alpha1 + alpha2);
+			
+		}
+		printf("Alpha1: %f\n", alpha1);
+		printf("Alpha2: %f\n", alpha2);
 	}
 	return 0;
 }
@@ -81,7 +114,7 @@ void GaussianKernal(float x, float y,  int CenterR, int CenterC, float Centers[]
 {
 	
 	float sigma = 0.04;
-	printf("Gauss Kernel\n\n\n");
+//	printf("Gauss Kernel\n\n\n");
 	for (int i = 0; i < 121; i++)
 	{
 		output[i] = exp(-(pow((x - Centers[0][i]), 2) + pow((y - Centers[1][i]), 2))/0.04);
@@ -91,13 +124,13 @@ void GaussianKernal(float x, float y,  int CenterR, int CenterC, float Centers[]
 }
 void CosinKernel(float x,float y, int CenterR, int CenterC,float Centers[][121] , float* output)
 {
-	printf("Cosine Kernel\n");
-	
+//	printf("Cosine Kernel\n");
+//	
 
 	//float output[121];
 	float sumCenter[121];
 	float intputsq=x*x +y*y;
-	printf("\nMultiplication Kernel\n\n\n");
+//	printf("\nMultiplication Kernel\n\n\n");
 	
 	for (int i = 0; i < 121; i++)
 	{
