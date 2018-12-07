@@ -34,6 +34,23 @@ void Coss(float* x, float* y, float* CenterX, float* CenterY, float* output, int
 	}
 }
 
+// First For Loop
+__global__
+void train_1(int n, float alp1, float alp2,  float *KC, float *KG, float *w)
+{
+  int i = blockIdx.x*blockDim.x + threadIdx.x;
+  if (i < n)
+	{
+	RBF_out[i] = (alp1*KC[i] + alp2*KG[i])/(alp1+alp2);
+	d_output += RBF_out[i]*w[i];
+	}
+}
+
+
+train_1<<<(N)/256, 256>>>(N, alp1, alp2, d_KC, d_KG); // Launch Statment
+
+cudaMemcpy(y, d_output, N*sizeof(float), cudaMemcpyDeviceToHost); // Copy Output
+
 
 
 void training();
