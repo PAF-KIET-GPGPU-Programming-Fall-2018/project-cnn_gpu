@@ -1,16 +1,15 @@
-﻿Build started 12/6/2018 7:26:47 PM.
+﻿Build started 12/7/2018 1:06:55 PM.
      1>Project "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\project\project\project.vcxproj" on node 2 (Build target(s)).
      1>AddCudaCompileDeps:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\cl.exe /E /nologo /showIncludes /TP /D__CUDACC__ /DWIN32 /DWIN64 /D_DEBUG /D_CONSOLE /D_MBCS /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\bin" /I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include" /I. /FIcuda_runtime.h /c "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\project\project\kernel.cu" 
      1>Project "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\project\project\project.vcxproj" (1) is building "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\project\project\project.vcxproj" (1:2) on node 2 (CudaBuildCore target(s)).
      1>CudaBuildCore:
          Compiling CUDA source file kernel.cu...
-         cmd.exe /C "C:\Users\lenovo\AppData\Local\Temp\tmp2bc0cb852604458fa8c7be8d270f2ff5.cmd"
+         cmd.exe /C "C:\Users\lenovo\AppData\Local\Temp\tmp3b529f3464a64410a684858a1f59bc50.cmd"
          "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\bin\nvcc.exe" -gencode=arch=compute_30,code=\"sm_30,compute_30\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64" -x cu  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc140.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\project\project\kernel.cu"
          
          C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\project\project>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\bin\nvcc.exe" -gencode=arch=compute_30,code=\"sm_30,compute_30\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64" -x cu  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc140.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "C:\Users\lenovo\Documents\GitHub\project-cnn_gpu\Code Implementations\Cuda Implementation\project\project\kernel.cu" 
-     1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(12): warning : variable "arraysize" was declared but never referenced
-     1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(15): warning : variable "Centers" was declared but never referenced
+     1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(14): warning : variable "trainOutput" was set but never used
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(19): warning : variable "alpha1" was declared but never referenced
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(20): warning : variable "alpha2" was declared but never referenced
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(21): warning : variable "outputNeuron" was declared but never referenced
@@ -18,6 +17,8 @@
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(23): warning : variable "b" was declared but never referenced
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(24): warning : variable "learningRate" was declared but never referenced
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(25): warning : variable "Epoch" was declared but never referenced
+     1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(47): warning : variable "error" was declared but never referenced
+     1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(49): warning : variable "temp" was declared but never referenced
          kernel.cu
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(15): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
      1>C:/Users/lenovo/Documents/GitHub/project-cnn_gpu/Code Implementations/Cuda Implementation/project/project/kernel.cu(15): warning C4305: 'initializing': truncation from 'double' to 'float'
@@ -31,4 +32,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.01
+Time Elapsed 00:00:02.07
