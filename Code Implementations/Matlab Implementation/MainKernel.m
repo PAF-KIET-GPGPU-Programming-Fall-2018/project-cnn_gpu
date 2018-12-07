@@ -8,3 +8,4 @@ Output=((aplha11*KC)+(alpha22*KG))/(aplha11+alpha22);
 Output=Output';
 end
 
+ 
