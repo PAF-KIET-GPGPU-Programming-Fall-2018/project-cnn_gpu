@@ -4,12 +4,14 @@
 
 #include <stdio.h>
 #include <math.h>
-
+#include <stdlib.h>
 void training();
-void CosinKernel(float x, float y, int CenterR, int CenterC, float Centers[][121]);
-void GaussianKernal(float x, float y, int CenterR, int CenterC, float Centers[][121]);
+void CosinKernel(float x, float y, int CenterR, int CenterC, float Centers[][121],float* output);
+void GaussianKernal(float x, float y, int CenterR, int CenterC, float Centers[][121], float* output);
 int main()
 {
+	const int N = 121;
+	size_t size = N * sizeof(float);
 	
 	float train[121][2];
 	float trainOutput[121];
@@ -22,6 +24,7 @@ int main()
 	float outputNeuron = 1;
 	float w[121];
 	float b = 0.0;
+	float error;
 	float learningRate = 0.001;
 	int Epoch = 10000;
 	for (int i = 0; i < 121; i++)
@@ -45,37 +48,53 @@ int main()
 			count++;
 		}
 	}
-	float error = 0.0;
-
-	float temp = 0.0;
 	
-	CosinKernel(train[0][0],train[0][1], 2, 121, Centers);
-	GaussianKernal(train[0][0], train[0][1], 2, 121, Centers);
+	float *KC,*KG;
 
-
+	KC = (float *)malloc(size);
+	KG = (float *)malloc(size);
+	float RBFoutput[121];
+	float finalOutput = 0.0;
+	CosinKernel(train[0][0],train[0][1], 2, 121, Centers,KC);
+	GaussianKernal(train[0][0], train[0][1], 2, 121, Centers,KG);
+	for (int i = 0; i < 121; i++)
+	{
+		RBFoutput[i] = (alpha1*KC[i] + alpha2*KG[i]) / (alpha1 + alpha2);
+		finalOutput += RBFoutput[i] * w[i] + b;
+		
+	}
+	printf("Final: %f\n", finalOutput);
+	error = trainOutput[0]- finalOutput;
+	printf("Error: %f\n", error);
+	b = b + learningRate*error;
+	for (int i = 0; i < 121; i++)
+	{
+		w[i] = w[i] + learningRate*error*RBFoutput[i];
+		printf("W: %f\n", w[i]);
+	}
 	return 0;
 }
 
 
 
-void GaussianKernal(float x, float y,  int CenterR, int CenterC, float Centers[][121])
+void GaussianKernal(float x, float y,  int CenterR, int CenterC, float Centers[][121],float* output)
 {
-	float output[121];
+	
 	float sigma = 0.04;
 	printf("Gauss Kernel\n\n\n");
 	for (int i = 0; i < 121; i++)
 	{
 		output[i] = exp(-(pow((x - Centers[0][i]), 2) + pow((y - Centers[1][i]), 2))/0.04);
-		printf("%f\n", output[i]);
+	//	printf("%f\n", output[i]);
 	}
 
 }
-void CosinKernel(float x,float y, int CenterR, int CenterC,float Centers[][121])
+void CosinKernel(float x,float y, int CenterR, int CenterC,float Centers[][121] , float* output)
 {
 	printf("Cosine Kernel\n");
 	
 
-	float output[121];
+	//float output[121];
 	float sumCenter[121];
 	float intputsq=x*x +y*y;
 	printf("\nMultiplication Kernel\n\n\n");
@@ -87,8 +106,8 @@ void CosinKernel(float x,float y, int CenterR, int CenterC,float Centers[][121])
 		output[i] = sum;
 		
 		sumCenter[i] = sqrt((pow(Centers[0][i], 2) + pow(Centers[1][i], 2))*intputsq);
-		output[i] = output[i] / sumCenter[i];
-		printf("%f\n", output[i]);
+		output[i] = output[i] / (sumCenter[i]+0.0000000000000001);
+		//printf("%f\n", output[i]);
 	}
 	
 }
