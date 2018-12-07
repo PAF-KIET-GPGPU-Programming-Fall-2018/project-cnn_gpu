@@ -38,19 +38,24 @@ void Coss(float* x, float* y, float* CenterX, float* CenterY, float* output, int
 __global__
 void train_1(int n, float alp1, float alp2,  float *KC, float *KG, float *w)
 {
+   __shared__ float output[N];
   int i = blockIdx.x*blockDim.x + threadIdx.x;
   if (i < n)
 	{
-	  
-	  
+	  	  
 	RBF_out[i] = (alp1*KC[i] + alp2*KG[i])/(alp1+alp2);
-	d_output += RBF_out[i]*w[i];
+	output[i] = RBF_out[i]*w[i];
 	
   }
+   __syncthreads();
+	d_output = d_output+ output[i];
 }
 
 int N=121;
 float *KC, *KG, *d_KC, *d_KG;
+cudaMalloc(&d_KG, N * sizeof(float));
+cudaMalloc(&d_KC, N * sizeof(float));
+
 cudaMemcpy(d_KC, KC, N*sizeof(float), cudaMemcpyHostToDevice); // Copy Input
 cudaMemcpy(d_KG, KG, N*sizeof(float), cudaMemcpyHostToDevice;// Copy Input
 
@@ -74,9 +79,12 @@ void train2(int n, float l_rate, float error,  float *RBF_out, float *w)
 	w[i] = w[i] + l_rate*error*RBF_out[i];
 	
   }
+__syncthreads();
 }
 int N=121;
 float *w, *RBFoutput, *d_RBFoutput, *d_w;
+cudaMalloc(&d_KG, N * sizeof(float));
+cudaMalloc(&d_KC, N * sizeof(float));
 
 cudaMemcpy(d_KC, KC, N*sizeof(float), cudaMemcpyHostToDevice);
 cudaMemcpy(d_KG, KG, N*sizeof(float), cudaMemcpyHostToDevice);
@@ -102,9 +110,13 @@ void train3(int n, float alp1_new, float *KC,  float *KG, float *w)
 	  alp1_new += (w[i] * (KC[i] - KG[i]));
 	
   	}
+__syncthreads();
 }
 
-float *w, *d_KC, *d_KG, *d_w;
+float *alp1_new, *w, *d_KC, *d_KG, *d_w;
+cudaMalloc(&d_KG, N * sizeof(float));
+cudaMalloc(&d_KC, N * sizeof(float));
+cudaMalloc(&d_w, N * sizeof(float));
 
 cudaMemcpy(d_KC, KC, N*sizeof(float), cudaMemcpyHostToDevice);
 cudaMemcpy(d_KG, KG, N*sizeof(float), cudaMemcpyHostToDevice);
@@ -112,13 +124,43 @@ cudaMemcpy(d_w, w, N*sizeof(float), cudaMemcpyHostToDevice);
 	   
 train3<<<(N)/256, 256>>>(N, alp1_new, d_KC, d_KG, d_w);
 	   
-cudaMemcpy(alphaUpdate, d_w, N*sizeof(float), cudaMemcpyDeviceToHost);
+cudaMemcpy(alpha1Update, alp1_new, N*sizeof(float), cudaMemcpyDeviceToHost);
 
 cudaFree(d_w);
 cudaFree(d_KG);
 cudaFree(d_KC);
 	   
+///////////////////////////////////////////////////////////////////////////////////
+// Kernel
+__global__
+void train4(int n, float alp2_new, float *KC,  float *KG, float *w)
+{
+  int i = blockIdx.x*blockDim.x + threadIdx.x;
+  if (i < n)
+	{
+	alp2_new += (w[i] * (KC[i]-KG[i]));
+	}
+}
 
+float *w, *d_KC, *d_KG, *d_w;
+cudaMalloc(&d_KG, N * sizeof(float));
+cudaMalloc(&d_KC, N * sizeof(float));
+cudaMalloc(&d_w, N * sizeof(float));
+
+cudaMemcpy(d_KC, KC, N*sizeof(float), cudaMemcpyHostToDevice);
+cudaMemcpy(d_KG, KG, N*sizeof(float), cudaMemcpyHostToDevice);
+cudaMemcpy(d_w, w, N*sizeof(float), cudaMemcpyHostToDevice);
+	   
+train3<<<(N)/256, 256>>>(N, alp2_new, d_KC, d_KG, d_w);
+	   
+cudaMemcpy(alpha2Update, alp2_new, N*sizeof(float), cudaMemcpyDeviceToHost);
+
+cudaFree(d_w);
+cudaFree(d_KG);
+cudaFree(d_KC);
+cudaFree(alp2_new);
+//////////////////////////////////////////////////////////////////////////////////	   
+	  
 	   
 void training();
 void CosinKernel(float x, float y, int CenterR, int CenterC, float Centers[][121],float* output);
