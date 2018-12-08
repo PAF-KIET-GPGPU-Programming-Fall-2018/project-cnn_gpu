@@ -68,6 +68,35 @@ void Multiplication(float* Kernel, float* w, float error, float learningRate, in
 
 	}
 }
+////////////////////////////////////////////////////////////////////////////
+// First For Loop
+__global__
+void train_1(int n, float alp1, float alp2,  float *KC, float *KG, float *w)
+{
+   __shared__ float output[N];
+  int i = blockIdx.x*blockDim.x + threadIdx.x;
+  if (i < n)
+	{
+	  	  
+	RBF_out[i] = (alp1*KC[i] + alp2*KG[i])/(alp1+alp2);
+	output[i] = RBF_out[i]*w[i];
+	
+  }
+   __syncthreads();
+	d_output = d_output+ output[i];
+}
+
+int N=121;
+float *KC, *KG, *d_KC, *d_KG;
+cudaMalloc(&d_KG, N * sizeof(float));
+cudaMalloc(&d_KC, N * sizeof(float));
+
+cudaMemcpy(d_KC, KC, N*sizeof(float), cudaMemcpyHostToDevice); // Copy Input
+cudaMemcpy(d_KG, KG, N*sizeof(float), cudaMemcpyHostToDevice;// Copy Input
+
+train_1<<<(N)/256, 256>>>(N, alp1, alp2, d_KC, d_KG); // Launch Statment
+
+cudaMemcpy(y, d_output, N*sizeof(float), cudaMemcpyDeviceToHost); // Copy Output
 
 __global__
 void AlphaUpdate(float* KC, float* KG, float* w, float* updateAlpha1, float* updateAlpha2)
