@@ -68,35 +68,6 @@ void Multiplication(float* Kernel, float* w, float error, float learningRate, in
 
 	}
 }
-////////////////////////////////////////////////////////////////////////////
-// First For Loop
-__global__
-void train_1(int n, float alp1, float alp2,  float *KC, float *KG, float *w)
-{
-   __shared__ float output[N];
-  int i = blockIdx.x*blockDim.x + threadIdx.x;
-  if (i < n)
-	{
-	  	  
-	RBF_out[i] = (alp1*KC[i] + alp2*KG[i])/(alp1+alp2);
-	output[i] = RBF_out[i]*w[i];
-	
-  }
-   __syncthreads();
-	d_output = d_output+ output[i];
-}
-
-int N=121;
-float *KC, *KG, *d_KC, *d_KG;
-cudaMalloc(&d_KG, N * sizeof(float));
-cudaMalloc(&d_KC, N * sizeof(float));
-
-cudaMemcpy(d_KC, KC, N*sizeof(float), cudaMemcpyHostToDevice); // Copy Input
-cudaMemcpy(d_KG, KG, N*sizeof(float), cudaMemcpyHostToDevice;// Copy Input
-
-train_1<<<(N)/256, 256>>>(N, alp1, alp2, d_KC, d_KG); // Launch Statment
-
-cudaMemcpy(y, d_output, N*sizeof(float), cudaMemcpyDeviceToHost); // Copy Output
 
 __global__
 void AlphaUpdate(float* KC, float* KG, float* w, float* updateAlpha1, float* updateAlpha2)
@@ -115,19 +86,19 @@ void AlphaUpdate(float* KC, float* KG, float* w, float* updateAlpha1, float* upd
 		
 		__syncthreads();
 
-		if (threadIdx.x == 0)
-		{
-			float sum1 = 0.0;
-			float sum2 = 0.0;
-			for (int j = 0; j < 121; j++)
-			{
-				sum1 += temp1[j];
-				sum2 += temp2[j];
-			}
-			updateAlpha1[0] = sum1;
-			updateAlpha2[0] = sum2;
-		//	printf("alpha1: %f\n", updateAlpha1[0]);
-		}
+		//if (threadIdx.x == 0)
+		//{
+		//	float sum1 = 0.0;
+		//	float sum2 = 0.0;
+		//	for (int j = 0; j < 121; j++)
+		//	{
+		//		sum1 += temp1[j];
+		//		sum2 += temp2[j];
+		//	}
+		//	updateAlpha1[0] = sum1;
+		//	updateAlpha2[0] = sum2;
+		////	printf("alpha1: %f\n", updateAlpha1[0]);
+		//}
 		//if (threadIdx.x == 1)
 		//{
 		//	float sum2 = 0.0;
@@ -267,7 +238,7 @@ int main()
 			cudaMemcpy(d_KC, KC, size, cudaMemcpyHostToDevice);
 			cudaMemcpy(d_KG, KG, size, cudaMemcpyHostToDevice);
 
-			AlphaUpdate << <DimGrid, DimBlock >> >(d_KC, d_KG, d_w, d_alpha1Update, d_alpha2Update);
+			AlphaUpdate << <2, 256 >> >(d_KC, d_KG, d_w, d_alpha1Update, d_alpha2Update);
 
 			cudaMemcpy(h_alpha1Update, d_alpha1Update, sizeof(float), cudaMemcpyDeviceToHost);
 			cudaMemcpy(h_alpha2Update, d_alpha2Update, sizeof(float), cudaMemcpyDeviceToHost);
